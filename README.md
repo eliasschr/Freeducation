@@ -57,10 +57,20 @@ Courses around Dante, Audio-over-IP, and network audio.
 
 Courses around Networking. 
 
+Broadcast:
 - [Netgear Pro AV Level 1](https://academy.netgear.com/course/view.php?id=10) (english Version)
 - [Netgear Pro AV Level 2](https://academy.netgear.com/course/view.php?id=4) (english Version)
 - [Netgear Pro AV Level 3](https://academy.netgear.com/course/view.php?id=65) (coming soon)
 - [Netgear Broadcast ST2110](https://academy.netgear.com/course/view.php?id=11) (english version)
+
+Enterprise IT: 
+- [Netgear Advanced Wired Networking](https://academy.netgear.com/course/view.php?id=35) (english Version)
+- [Netgear Advanced Wireless Networking](https://academy.netgear.com/course/view.php?id=36) (english Version)
+- [Netgear Advanced Insight](https://academy.netgear.com/course/view.php?id=37) (english Version)
+
+Cyber Securtiy: 
+- [SASE Admin - Network and Cloud Security](https://academy.netgear.com/course/view.php?id=29) (english Version)
+- [SASE Pro - Network and Cloud Security](https://academy.netgear.com/course/view.php?id=28) (english Version)
 
 
 ---

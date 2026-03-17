@@ -72,6 +72,12 @@ Cyber Securtiy:
 - [SASE Admin - Network and Cloud Security](https://academy.netgear.com/course/view.php?id=29) (english Version)
 - [SASE Pro - Network and Cloud Security](https://academy.netgear.com/course/view.php?id=28) (english Version)
 
+### Cisco
+[Cisco Networking Academy](https://www.netacad.com/)
+
+Courses around Networking. 
+
+- [Introduction for Cybersecurity](https://www.netacad.com/courses/introduction-to-cybersecurity?courseLang=en-US) (english Version, different Languages are Available)
 
 ---
 

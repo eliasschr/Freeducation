@@ -119,8 +119,8 @@ Kostenlose Kurse aus dem Lernkatalog ([category=course](https://www.netacad.com/
 
 Courses around IP video and NDI workflows.
 
-- [NDI Basics](https://community.ndi.video/my/) (english Version)
-- [NDI Tools](https://community.ndi.video/my/) (english Version)
+- [NDI Basics]([https://community.ndi.video/my/](https://community.ndi.video/course/index.php?categoryid=2)) (english Version)
+- [NDI Tools]([https://community.ndi.video/my/](https://community.ndi.video/course/index.php?categoryid=13)) (english Version)
 
 ---
 

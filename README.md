@@ -55,3 +55,5 @@ Courses around Dante, Audio-over-IP, and network audio.
 ---
 
 > 💡 Tip: When adding a new course, place it under the matching company to keep navigation clean and easy to use.
+
+<!-- GitAds-Verify: AEPU18DWV628UUS9XWOLHQ9O5FAPA2AU -->

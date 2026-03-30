@@ -1,4 +1,4 @@
-# 🎓 Courses & Certificates (Mostly Free)
+# 🎓 Freeducation
 
 A curated collection of **free** (and some paid) courses with optional or free certificates.
 

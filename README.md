@@ -36,6 +36,8 @@ A curated collection of **free** (and some paid) courses with optional or free c
 - Star this repository
 - Share it with others
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/D1K3206S9E)
+
 ---
 
 ## GitAds Sponsored

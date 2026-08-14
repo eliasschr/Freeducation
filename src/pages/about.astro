@@ -1,0 +1,39 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { site } from "@data/site";
+---
+
+<BaseLayout
+  active="about"
+  title="About - Freeducation"
+  description="About Freeducation, its curated course index, external providers and open-source contribution model."
+>
+  <article class="info-page section-shell page-entry">
+    <p class="eyebrow">About</p>
+    <h1>Small index,<br />useful education.</h1>
+
+    <div class="info-grid">
+      <p>
+        Freeducation collects learning resources that are worth finding again.
+      </p>
+      <div>
+        <p>
+          The directory is curated and focuses on courses, certifications and learning paths from external providers
+          across broadcast, networking, cybersecurity, development and adjacent technical fields.
+        </p>
+        <p>
+          Many listed courses are free, and some include certificates. Availability, pricing and certificate rules can
+          change because every course is hosted by its original provider, not by Freeducation.
+        </p>
+        <p>
+          Freeducation is open source. New courses, corrections and improved metadata can be contributed through GitHub.
+        </p>
+        <nav class="quiet-links" aria-label="About links">
+          <a href="/">Browse Courses</a>
+          <a href="/providers/">Providers</a>
+          <a href={site.github} target="_blank" rel="noreferrer">Contribute on GitHub ↗</a>
+        </nav>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

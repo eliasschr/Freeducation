@@ -1,0 +1,22 @@
+---
+import { site } from "@data/site";
+
+const { active = "courses" } = Astro.props as { active?: "courses" | "providers" | "about" };
+const switchActive = active === "providers" ? "providers" : "courses";
+---
+
+<header class="site-header" data-site-header>
+  <a class="brand-link" href="/" aria-label={`${site.name} home`}>{site.name}</a>
+  <nav class="mode-switch" data-active={switchActive} aria-label="Primary navigation">
+    <a class:list={{ "is-active": switchActive === "courses" }} href="/#courses">Courses</a>
+    <a class:list={{ "is-active": switchActive === "providers" }} href="/providers/">Providers</a>
+  </nav>
+  <a class:list={["header-info", { "is-active": active === "about" }]} href="/about/">About</a>
+</header>
+
+<script>
+  const header = document.querySelector("[data-site-header]");
+  const updateHeader = () => header?.classList.toggle("is-compact", window.scrollY > 24);
+  updateHeader();
+  window.addEventListener("scroll", updateHeader, { passive: true });
+</script>

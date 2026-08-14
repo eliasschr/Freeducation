@@ -1,0 +1,194 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { categories, courses } from "@data/courses";
+import { site } from "@data/site";
+---
+
+<BaseLayout>
+  <article class="page-entry">
+    <section class="work-hero section-shell">
+      <div>
+        <p class="hero-name">{site.name}</p>
+        <h1 class="hero-title">
+          <span class="wide-line">Free courses,</span>
+          <span class="wide-line">useful certificates</span>
+          <span class="wide-line">&amp; better education</span>
+          <span class="narrow-line">Free</span>
+          <span class="narrow-line">courses,</span>
+          <span class="narrow-line">useful</span>
+          <span class="narrow-line">certificates</span>
+          <span class="narrow-line">&amp; better</span>
+          <span class="narrow-line">education</span>
+        </h1>
+      </div>
+      <div class="hero-bottom">
+        <p>
+          Freeducation is a curated collection of free learning resources, courses and certifications from companies
+          and organizations across tech, broadcast, networking and media.
+        </p>
+        <nav class="quiet-links" aria-label="Page links">
+          <a href="#courses">Browse Courses</a>
+          <a href="/providers/">Providers</a>
+          <a href="#contribute">Contribute</a>
+          <a href={site.github} target="_blank" rel="noreferrer">GitHub ↗</a>
+        </nav>
+      </div>
+    </section>
+
+    <section class="section-shell course-directory" id="courses" aria-labelledby="courses-title" data-course-app>
+      <div class="section-heading" data-reveal>
+        <p class="eyebrow">Course Directory</p>
+        <h2 id="courses-title">A searchable index for useful learning.</h2>
+        <p class="section-heading__meta">{courses.length} entries</p>
+      </div>
+
+      <div class="course-controls" data-reveal>
+        <label class="search-field">
+          <span class="sr-only">Search courses</span>
+          <input data-search-input type="search" placeholder="Search courses..." autocomplete="off" />
+        </label>
+
+        <nav class="filter-nav" aria-label="Course categories">
+          {
+            categories.map((category) => (
+              <button type="button" data-filter={category} class:list={{ "is-active": category === "All" }}>
+                {category}
+              </button>
+            ))
+          }
+        </nav>
+
+        <p class="filter-status" data-filter-status aria-live="polite"></p>
+      </div>
+
+      <div class="courses-table" role="table" aria-label="Course directory" data-reveal>
+        <div class="courses-table__head" role="row">
+          <span role="columnheader">Provider</span>
+          <span role="columnheader">Course</span>
+          <span role="columnheader">Topic</span>
+          <span role="columnheader">Access</span>
+        </div>
+
+        <div class="courses-table__body">
+          {
+            courses.map((course) => (
+              <article
+                class="course-row"
+                role="row"
+                data-course-row
+                data-provider={course.provider}
+                data-category={course.category}
+                data-status={course.status}
+                data-search={`${course.title} ${course.provider} ${course.category} ${course.description} ${course.topics.join(" ")} ${course.language}`.toLowerCase()}
+              >
+                <p class="course-row__provider" role="cell">{course.provider}</p>
+                <div class="course-row__main" role="cell">
+                  <a href={course.url} target="_blank" rel="noreferrer" aria-label={`${course.title} by ${course.provider} opens externally`}>
+                    {course.title} <span aria-hidden="true">↗</span>
+                  </a>
+                  <p>{course.description}</p>
+                  <dl class="course-row__meta">
+                    <div>
+                      <dt>Language</dt>
+                      <dd>{course.language}</dd>
+                    </div>
+                    <div>
+                      <dt>Certificate</dt>
+                      <dd>{course.certificate ? "Certificate" : "No certificate listed"}</dd>
+                    </div>
+                    {course.status === "coming-soon" && (
+                      <div>
+                        <dt>Status</dt>
+                        <dd>Coming soon</dd>
+                      </div>
+                    )}
+                  </dl>
+                </div>
+                <p class="course-row__topic" role="cell">{course.category}</p>
+                <p class="course-row__access" role="cell">
+                  {course.free ? "Free" : "Paid"}
+                  <span aria-hidden="true"> ↗</span>
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="empty-state" data-empty-state hidden>
+        <p>No courses found.</p>
+        <span>Try another search or category.</span>
+      </div>
+    </section>
+
+    <section class="section-shell contribute-section" id="contribute" aria-labelledby="contribute-title" data-reveal>
+      <p class="eyebrow">Contribute</p>
+      <h2 id="contribute-title">Found something<br />worth learning?</h2>
+      <p>Freeducation is open source. Add a course or improve an existing entry.</p>
+      <a class="section-heading__link" href={site.github} target="_blank" rel="noreferrer">Contribute on GitHub</a>
+    </section>
+  </article>
+
+  <script>
+    const app = document.querySelector<HTMLElement>("[data-course-app]");
+    const rows = Array.from(document.querySelectorAll<HTMLElement>("[data-course-row]"));
+    const searchInput = document.querySelector<HTMLInputElement>("[data-search-input]");
+    const filterButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-filter]"));
+    const emptyState = document.querySelector<HTMLElement>("[data-empty-state]");
+    const status = document.querySelector<HTMLElement>("[data-filter-status]");
+    const params = new URLSearchParams(window.location.search);
+    const providerFilter = params.get("provider");
+    let activeCategory = "all";
+
+    const normalize = (value: string) => value.toLowerCase().trim();
+    const normalizeCategory = (value: string | null) => normalize(value ?? "all") || "all";
+    const getCategoryLabel = () => filterButtons.find((button) => normalizeCategory(button.getAttribute("data-filter")) === activeCategory)?.textContent?.trim() ?? "All";
+
+    const setActiveCategory = (category: string | null) => {
+      activeCategory = normalizeCategory(category);
+      filterButtons.forEach((button) => {
+        button.classList.toggle("is-active", normalizeCategory(button.getAttribute("data-filter")) === activeCategory);
+      });
+    };
+
+    const setStatus = (visibleCount: number) => {
+      if (!status) return;
+      const parts = [`${visibleCount} ${visibleCount === 1 ? "course" : "courses"}`];
+      if (providerFilter) parts.push(`from ${providerFilter}`);
+      if (activeCategory !== "all") parts.push(`in ${getCategoryLabel()}`);
+      status.textContent = parts.join(" ");
+    };
+
+    const applyFilters = () => {
+      const query = normalize(searchInput?.value ?? "");
+      let visibleCount = 0;
+
+      rows.forEach((row) => {
+        const category = row.getAttribute("data-category") ?? "";
+        const provider = row.getAttribute("data-provider") ?? "";
+        const haystack = row.getAttribute("data-search") ?? "";
+        const matchesCategory = activeCategory === "all" || normalizeCategory(category) === activeCategory;
+        const matchesProvider = !providerFilter || provider === providerFilter;
+        const matchesSearch = !query || haystack.includes(query);
+        const isVisible = matchesCategory && matchesProvider && matchesSearch;
+        row.hidden = !isVisible;
+        if (isVisible) visibleCount += 1;
+      });
+
+      if (emptyState) emptyState.hidden = visibleCount !== 0;
+      app?.toggleAttribute("data-provider-filtered", Boolean(providerFilter));
+      setStatus(visibleCount);
+    };
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        setActiveCategory(button.getAttribute("data-filter"));
+        applyFilters();
+      });
+    });
+
+    searchInput?.addEventListener("input", applyFilters);
+    setActiveCategory(filterButtons.find((button) => button.classList.contains("is-active"))?.getAttribute("data-filter") ?? "all");
+    applyFilters();
+  </script>
+</BaseLayout>

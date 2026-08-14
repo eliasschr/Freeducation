@@ -1,0 +1,32 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { providerSummaries } from "@data/courses";
+---
+
+<BaseLayout
+  active="providers"
+  title="Providers - Freeducation"
+  description="Organizations currently included in the Freeducation course directory."
+>
+  <article class="providers-page page-entry">
+    <header class="section-shell providers-hero">
+      <p class="eyebrow">Providers</p>
+      <h1>Organizations currently<br />included in Freeducation.</h1>
+    </header>
+
+    <section class="section-shell provider-index" aria-label="Provider list">
+      {
+        providerSummaries.map((provider, index) => (
+          <a class="provider-row" href={`/?provider=${encodeURIComponent(provider.name)}#courses`} data-reveal>
+            <span class="provider-row__number">{String(index + 1).padStart(2, "0")}</span>
+            <span class="provider-row__main">
+              <strong>{provider.name}</strong>
+              <span>{provider.topics.join(" · ")}</span>
+            </span>
+            <span class="provider-row__count">{provider.courseCount} courses ↗</span>
+          </a>
+        ))
+      }
+    </section>
+  </article>
+</BaseLayout>
